@@ -1,0 +1,136 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \\documentclass[conference]\{IEEEtran\}\
+%\\IEEEoverridecommandlockouts\
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.\
+\\usepackage\{cite\}\
+\\usepackage\{amsmath,amssymb,amsfonts\}\
+\\usepackage\{algorithmic\}\
+\\usepackage\{graphicx\}\
+\\usepackage\{textcomp\}\
+\\usepackage\{xcolor\}\
+\\def\\BibTeX\{\{\\rm B\\kern-.05em\{\\sc i\\kern-.025em b\}\\kern-.08em\
+    T\\kern-.1667em\\lower.7ex\\hbox\{E\}\\kern-.125emX\}\}\
+\\begin\{document\}\
+\
+\\title\{EAS 595 Project Report\\\\\
+\\large Introduction to Probability Theory for Data Science\
+\}\
+\
+\\author\{\
+\
+\\IEEEauthorblockN\{Shubham Sharma\}\
+\\IEEEauthorblockA\{\\textit\{Graduate Student - Data Sciences\} \\\\\
+\\textit\{University at Buffalo\}\\\\\
+New York, United States \\\\\
+ss628@buffalo.edu\}\
+\}\
+\
+\\maketitle\
+\
+\\begin\{abstract\}\
+The given problem statement requires us to process the data in various steps and obtain the conclusion for the best accuracy and error rate:\
+\\begin\{itemize\}\
+\\item Step 1: Construct a training set of 100 rows from \\(F_1\\), \\(F_2\\)\
+\\item Step 2.1: Test the remaining 900 rows of the data set i.e. \\(F_1\\),  \\(F_2\\). Calculate the probability of each class of the data and choose the class with maximum probability, i.e. the most probable class.\
+\\item Step 2.2: Determine the classification accuracy and error rate of the test data i.e. rows 101 - 1000\
+\\item Step 3: Normalize the \\(F_1\\) matrix row-wise for each subject which is called as \\(Z_1\\). Compare the distribution of the \\(Z_1\\) vs \\(F_2\\) to \\(F_1\\) vs \\(F_2\\).\
+\\item Step 4: Repeat the steps 2.1 and 2.2 for\
+\
+  \\begin\{align\}\
+    X = Z_1, X = F_2,  \
+    X &= \\begin\{bmatrix\}\
+           Z_\{1\} \\\\\
+           F_\{2\}\
+         \\end\{bmatrix\}\
+  \\end\{align\}\
+\\item Step 5: - Compare the classification rates of all the four cases\
+\
+\\end\{itemize\}\
+\\end\{abstract\}\
+\
+\\section\{Step by Step by procedure\}\
+\\begin\{itemize\}\
+    \\item  Step 1: F1 data set has been used to create the model, the data set has been divided into training (100 rows) and test (900 rows). Since equal number of samples are there in each class, it is reasonable to assume that all the classes as equiprobable. As given in the question, continuous values associated with each class are assumed to be distributed according to a Guassian distribution. Mean and variance for each class is computed. \
+    \\newline\
+    \\item Step 2.1: The corresponding probability distribution for all values is computed using the Normal distribution parameterized by the mean and variance computed in the training step. Thereafter, out of the five values of the conditional probability obtained, the one with the maximum value is treated as the most likely class. By Bayes theorem, the conditional probability P(\\(F_1\\)\\|\\(C_i\\)) is proportional to P(\\(C_i\\)\\|\\(F_1\\)) since P(\\(C_i\\)) and P(\\(F_1\\)) are constants.\
+    \\newline\
+    \\item Step 2.2: Accuracy is found as the number of correct predictions made/total predictions. The error rate is incorrect predictions/total predictions.\
+    \\newline\
+    \\item Step 3: The data in \\(F_1\\) was normalized to make each row centre around the same mean (0) and have the same standard deviation (1) which segregates the different classes better as is evident in the figure \\ref\{1\}. This helps in putting all the subjects on a comparable scale. Without normalization, the range of values for each subject was large and inconsistent with other subjects due to which each class had overlap with each other and the resulting plot was diffused as shown in figure \\ref\{2\}. After normalization, each class gets a different range of values for itself over the different subjects as the effect of individual differences is removed. This is because \\(F_1\\) is a subjective measure and the range of values is different for different individuals.\
+    \\newline\
+    \\item Step 4: The same practice was repeated for \\(F_2\\) as well as \\(Z_1\\). In case of the multivariate normal distribution of (\\(Z_1\\);\\(F_2\\)) we assume that the features are independent of each other thus the resulting conditional probabilities for the multivariate distribution would simply be proportional to the product of the conditional probabilities for \\(Z_1\\) and \\(F_2\\) under the conditional independence assumption.\
+\\end\{itemize\}\
+\
+\\begin\{table\}[h!]\
+\\centering\
+\\begin\{tabular\}\{||c c c||\} \
+ \\hline\
+ Dataset & Accuracy (in \\%) & Error Rate (in \\%) \\\\ [0.5ex] \
+ \\hline\\hline\
+ \\(F_1\\) & 53.00 & 47.00 \\\\ \
+ \\(Z_1\\) & 88.33 & 11.67 \\\\ \
+ \\(F_2\\) & 55.16 & 44.84 \\\\ \
+ \\(X\\) = (\\(Z_1\\);\\(F_2\\)) & 97.98 & 2.02 \\\\ [1.0ex]\
+\\hline\
+\\end\{tabular\}\
+\\caption\{Accuracy and Error Rates for each case\}\
+\\label\{table:data2\}\
+\\end\{table\}\
+\
+\\begin\{figure\}[!htbp]\
+\\begin\{center\}\
+\\includegraphics[width=9.5cm]\{1.jpg\}\
+\\end\{center\}\
+\\caption\{Distribution of \\(F_2\\) vs \\(Z_1\\) after normalization\}\\label\{1\}\
+\\end\{figure\}\
+\
+\\begin\{figure\}[!htbp]\
+\\begin\{center\}\
+\\includegraphics[width=9.5cm]\{2.jpg\}\
+\\end\{center\}\
+\\caption\{Distribution of \\(F_2\\) vs \\(F_1\\) before normalisation\}\\label\{2\}\
+\\end\{figure\}\
+\
+\\section\{Results\}\
+The results are summarized in table \\ref\{table:data2\} which tells the accuracy as well as the error rate for each case. Following can be concluded for each case: \
+\\newline\
+\\begin\{itemize\}\
+    \\item  \
+    The accuracy is lowest for the case of dataset \\(F_1\\) since it is a subjective measure and have a range of values for each subject which overlap within classes. Thus, the model obtained is not able to predict the correct classes with high accuracy. The case for \\(F_2\\) have a similar line of reasoning and for the same reason the errors for both are close.\
+    \\newline\
+    \\item\
+    The accuracy is improved for the normalized version \\(Z_1\\) since each class has a better representation now and the overlap between different classes is removed. Each row is now centered with a common mean of 0 and standard deviation of 1 due to which each class gets a well defined range of values. \
+    \\newline\
+    \\item\
+    The accuracy for the multivariate distribution, \\(X\\) = (\\(Z_1\\);\\(F_2\\)) is highest because it has more variables which it is considering in the model because of which the predictions come out to be better. Also, because of the independence assumption there is no correlation between the two features.\
+    \
+\\end\{itemize\}\
+\
+\\section\{Discussion\}\
+\
+\\begin\{itemize\}\
+In this case we consider each distribution as a one-dimensional distribution independent of the other distribution. Also, the only requirement for correct classification in this case is that the correct class be more probable than any other class. This is true regardless of whether the probability estimate is slightly, or even grossly inaccurate. The classifier, here tries to find posterior probabilities based on prior probabilities using Bayes Theorem. The posterior probabilities are characterized in terms of only two numbers, the mean and the variance.\
+\
+\\end\{itemize\}\
+\
+\\section*\{References\}\
+\
+Following book was used for reference. \\cite\{b1\}.\
+\
+\\begin\{thebibliography\}\{00\}\
+\\bibitem\{b1\} Introduction to Probability, Bertsekas, D.P. and Tsitsiklis, J.N.\
+\
+\\end\{thebibliography\}\
+\\vspace\{12pt\}\
+\
+\\end\{document\}\
+\
+\
+\\end\{document\}\
+}
